@@ -17,10 +17,6 @@ import DB.SessionToken
 
 type SessionTokenApi = "game_sessions" :>  ReqBody '[JSON] LoginRequest :> Post '[JSON] SessionToken
 
---instance Generic SessionToken
---instance ToJSON SessionToken
---instance FromJSON SessionToken
-
 data LoginRequest = LoginRequest
   { username :: String
   , password :: String

@@ -7,7 +7,7 @@
 {-# LANGUAGE TemplateHaskell            #-}
 {-# LANGUAGE TypeFamilies               #-}
 
-module DB.SessionToken where
+module DB.User where
 
 import Database.Persist
 import Data.Time
@@ -19,12 +19,14 @@ import Control.Monad.IO.Class (liftIO)
 import Control.Monad.Reader
 
 share [mkPersist sqlSettings, mkSave "entityDefs"] [persistLowerCase|
-SessionToken
-  token String
-  UniqueToken token
-  expiration UTCTime
+User
+  email String
+  UniqueEmail email
+  username String
+  UniqueUsername username
+  passwordHash String
   deriving Show Generic
 |]
 
-instance ToJSON SessionToken
-instance FromJSON SessionToken
+instance ToJSON User
+instance FromJSON User

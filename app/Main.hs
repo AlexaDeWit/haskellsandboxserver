@@ -7,7 +7,9 @@ import Control.Monad.Except
 
 --Local Libs
 import Lib
-import GameSessions
+import Requests.GameSessions
+import DB.SessionToken
+
 
 server :: Server SessionTokenApi
 server = game_session

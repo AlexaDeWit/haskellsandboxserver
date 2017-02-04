@@ -1,8 +1,8 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE TypeOperators #-}
-
-module GameSessions
+---
+module Requests.GameSessions
   ( SessionToken
   , SessionTokenApi
   , LoginRequest
@@ -13,15 +13,13 @@ import Data.Time
 import Data.Aeson.Types
 import GHC.Generics
 import Servant
+import DB.SessionToken
 
 type SessionTokenApi = "game_sessions" :>  ReqBody '[JSON] LoginRequest :> Post '[JSON] SessionToken
 
-data SessionToken = SessionToken
-  { token :: String
-  , expiration :: UTCTime
-  } deriving (Eq, Show, Generic)
-
-instance ToJSON SessionToken
+--instance Generic SessionToken
+--instance ToJSON SessionToken
+--instance FromJSON SessionToken
 
 data LoginRequest = LoginRequest
   { username :: String

@@ -6,19 +6,10 @@ import Network.Wai.Handler.Warp
 import Control.Monad.Except
 
 --Local Libs
-import Lib
-import Requests.GameSessions
-
-server :: Server SessionTokenApi
-server = game_session
-  where game_session :: LoginRequest -> Handler SessionToken
-        game_session  req = liftIO $ tokenFromRequest req
-
-gameSessionsAPI :: Proxy SessionTokenApi
-gameSessionsAPI = Proxy
+import API.V1
 
 app1 :: Application
-app1 = serve gameSessionsAPI server
+app1 = serve v1ServerAPI v1Server
 
 main :: IO ()
 main = run 8080 app1

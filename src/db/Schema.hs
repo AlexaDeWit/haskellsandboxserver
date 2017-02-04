@@ -1,13 +1,14 @@
 {-# LANGUAGE GADTs                      #-}
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric              #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE OverloadedStrings          #-}
 {-# LANGUAGE QuasiQuotes                #-}
 {-# LANGUAGE MultiParamTypeClasses      #-}
 {-# LANGUAGE TemplateHaskell            #-}
 {-# LANGUAGE TypeFamilies               #-}
+{-# LANGUAGE FlexibleInstances          #-}
 
-module DB.User where
+module DB.Schema where
 
 import Database.Persist
 import Data.Time
@@ -18,15 +19,24 @@ import Database.Persist.Postgresql
 import Control.Monad.IO.Class (liftIO)
 import Control.Monad.Reader
 
-share [mkPersist sqlSettings, mkSave "entityDefs"] [persistLowerCase|
-User
+share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
+User json
   email String
   UniqueEmail email
   username String
   UniqueUsername username
   passwordHash String
   deriving Show Generic
-|]
 
+SessionToken json
+  token String
+  UniqueToken token
+  expiration UTCTime
+  deriving Show Generic
+|]
+{-
 instance ToJSON User
 instance FromJSON User
+instance ToJSON SessionToken
+instance FromJSON SessionToken
+-}

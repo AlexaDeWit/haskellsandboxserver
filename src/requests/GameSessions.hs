@@ -13,9 +13,9 @@ import Data.Time
 import Data.Aeson.Types
 import GHC.Generics
 import Servant
-import DB.SessionToken
+import DB.Schema
 
-type SessionTokenApi = "game_sessions" :>  ReqBody '[JSON] LoginRequest :> Post '[JSON] SessionToken
+type SessionTokenApi = ReqBody '[JSON] LoginRequest :> Post '[JSON] SessionToken
 
 data LoginRequest = LoginRequest
   { username :: String

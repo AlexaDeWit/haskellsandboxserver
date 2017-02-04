@@ -34,9 +34,3 @@ SessionToken json
   expiration UTCTime
   deriving Show Generic
 |]
-{-
-instance ToJSON User
-instance FromJSON User
-instance ToJSON SessionToken
-instance FromJSON SessionToken
--}

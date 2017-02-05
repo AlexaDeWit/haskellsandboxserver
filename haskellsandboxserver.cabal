@@ -16,12 +16,14 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
                      , src/db
+                     , src/db/queries
                      , src/requests
                      , src/api
   exposed-modules:     Lib
                      , Requests.GameSessions
                      , API.V1
                      , DB.Schema
+                     , DB.Queries.User
   build-depends:       base >= 4.7 && < 5
                      , time
                      , servant-server
@@ -30,6 +32,11 @@ library
                      , persistent-template
                      , persistent-postgresql
                      , mtl
+                     , monad-logger
+                     , transformers
+                     , bytestring
+                     , wai
+                     , wai-extra
   default-language:    Haskell2010
 
 executable haskellsandboxserver-exe

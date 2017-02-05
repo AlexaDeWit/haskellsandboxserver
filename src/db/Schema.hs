@@ -34,3 +34,13 @@ SessionToken json
   expiration UTCTime
   deriving Show Generic
 |]
+
+{-
+doMigrations :: SqlPersistT IO ()
+doMigrations = runMigration migrateAll
+
+runDb :: (MonadReader Config m, MonadIO m) => SqlPersistT IO b -> m b
+runDb query = do
+    pool <- asks getPool
+liftIO $ runSqlPool query pool
+-}

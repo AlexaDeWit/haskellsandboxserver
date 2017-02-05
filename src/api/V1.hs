@@ -21,7 +21,7 @@ import GHC.Generics
 import API.V1.Resources.SessionToken
 
 apiV1App :: Config -> Application
-apiV1App cfg = serve (Proxy :: Proxy SessionTokenApi) (appToServer cfg)
+apiV1App cfg = serve v1ServerAPI (appToServer cfg)
 
 appToServer :: Config -> Server SessionTokenApi
 appToServer cfg = enter (convertApp cfg) tokenServer

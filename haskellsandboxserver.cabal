@@ -19,11 +19,13 @@ library
                      , src/db/queries
                      , src/requests
                      , src/api
+                     , src/api/v1/resources
   exposed-modules:     Lib
-                     , Requests.GameSessions
                      , API.V1
                      , DB.Schema
                      , DB.Queries.User
+                     , DB.Config
+                     , API.V1.Resources.SessionToken
   build-depends:       base >= 4.7 && < 5
                      , time
                      , servant-server
@@ -46,6 +48,8 @@ executable haskellsandboxserver-exe
   build-depends:       base
                      , haskellsandboxserver
                      , servant-server
+                     , safe
+                     , persistent-postgresql
                      , mtl
                      , wai
                      , warp

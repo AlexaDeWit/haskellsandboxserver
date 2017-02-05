@@ -130,4 +130,4 @@ envPool Production = 8
 -- | A basic 'ConnectionString' for local/test development. Pass in either
 -- @""@ for 'Development' or @"test"@ for 'Test'.
 connStr :: BS.ByteString -> ConnectionString
-connStr sfx = "host=localhost dbname=perservant" <> sfx <> " user=test password=test port=5432"
+connStr sfx = "host=localhost dbname=catsandbox" <> sfx <> " user=postgres password=scalasandboxserver port=5432"

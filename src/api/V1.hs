@@ -1,25 +1,36 @@
-{-# LANGUAGE DataKinds #-}
-{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE DataKinds                  #-}
+{-# LANGUAGE TypeOperators              #-}
 
 module API.V1
   ( APIV1
   , v1ServerAPI
-  , v1Server
+  , apiV1App
   ) where
 
-import Servant
-import Data.Aeson.Types
-import GHC.Generics
-import Requests.GameSessions
+
 import Control.Monad.Except
+import Control.Monad.Reader        (ReaderT, runReaderT)
+import Control.Monad.Reader.Class
+import Data.Int                    (Int64)
+import Database.Persist.Postgresql (Entity (..), fromSqlKey, insert,
+                                             selectFirst, selectList, (==.))
+import Network.Wai                 (Application)
+import Servant
+import DB.Config (App (..), Config (..))
+import GHC.Generics
+import API.V1.Resources.SessionToken
+
+apiV1App :: Config -> Application
+apiV1App cfg = serve (Proxy :: Proxy SessionTokenApi) (appToServer cfg)
+
+appToServer :: Config -> Server SessionTokenApi
+appToServer cfg = enter (convertApp cfg) tokenServer
+
+convertApp :: Config -> App :~> ExceptT ServantErr IO
+convertApp cfg = Nat (flip runReaderT cfg . runApp)
 
 type APIV1 = "api" :> "v1" :>
   SessionTokenApi
-
-v1Server :: Server APIV1
-v1Server = sessionToken
-  where sessionToken :: LoginRequest -> Handler SessionToken
-        sessionToken req = liftIO $ tokenFromRequest req
 
 v1ServerAPI :: Proxy APIV1
 v1ServerAPI = Proxy

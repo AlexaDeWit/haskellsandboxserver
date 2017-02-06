@@ -4,7 +4,6 @@
 
 module API.V1.SessionAuth where
 
-
 import Data.Time
 import Data.Aeson.Types
 import GHC.Generics

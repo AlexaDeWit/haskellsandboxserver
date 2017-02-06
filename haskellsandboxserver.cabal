@@ -39,6 +39,7 @@ library
                      , bytestring
                      , wai
                      , wai-extra
+                     , bcrypt
   default-language:    Haskell2010
 
 executable haskellsandboxserver-exe

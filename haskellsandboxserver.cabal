@@ -17,15 +17,14 @@ library
   hs-source-dirs:      src
                      , src/db
                      , src/db/queries
-                     , src/requests
                      , src/api
-                     , src/api/v1/resources
-  exposed-modules:     Lib
-                     , API.V1
+                     , src/api/v1/public
+                     , src/api/v1/private
+  exposed-modules:     API.V1
                      , DB.Schema
                      , DB.Queries.User
                      , DB.Config
-                     , API.V1.Resources.SessionToken
+                     , API.V1.Public.SessionToken
   build-depends:       base >= 4.7 && < 5
                      , time
                      , servant-server

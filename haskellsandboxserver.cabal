@@ -24,7 +24,7 @@ library
                      , DB.Schema
                      , DB.Queries.User
                      , DB.Config
-                     , API.V1.Public.SessionToken
+                     , API.V1.Public.SessionTokens
   build-depends:       base >= 4.7 && < 5
                      , time
                      , servant-server
@@ -39,6 +39,7 @@ library
                      , wai
                      , wai-extra
                      , bcrypt
+                     , validation
   default-language:    Haskell2010
 
 executable haskellsandboxserver-exe

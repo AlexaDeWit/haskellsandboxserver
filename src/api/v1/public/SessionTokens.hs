@@ -3,7 +3,7 @@
 {-# LANGUAGE TypeOperators #-}
 
 
-module API.V1.Public.SessionToken
+module API.V1.Public.SessionTokens
   ( SessionToken
   , SessionTokenApi
   , LoginRequest

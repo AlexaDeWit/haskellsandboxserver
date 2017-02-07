@@ -18,7 +18,7 @@ import Network.Wai                 (Application)
 import Servant
 import DB.Config (App (..), Config (..))
 import GHC.Generics
-import API.V1.Public.SessionToken
+import API.V1.Public.SessionTokens
 
 apiV1App :: Config -> Application
 apiV1App cfg = serve v1ServerAPI (appToServer cfg)

@@ -2,7 +2,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE TypeOperators #-}
 
-module API.V1.Public.User where
+module API.V1.Public.Users where
 
 import Data.Aeson.Types
 import Servant
@@ -25,23 +25,8 @@ data RegistrationRequest = RegistrationRequest
 instance FromJSON RegistrationRequest
 instance ToJSON RegistrationRequest
 
-registerUser :: RegistrationRequest -> App User
+{-
+registerUser :: RegistrationRequest -> App (Maybe User)
 registerUser req = do
-  validateForm
-  where
-    validateForm = do
-      f (email req == confirmEmail req) "Email fields do not match"
-      f (password req == confirmPass rew) "Password fields do not match"
-      f (length (password req) > 12) "Password must be longer than 12 characters"
-    f True  _ = return ()
-    f False e = throwError $ err400 { errBody = e }
-  let emailAvailable = do
-    maybeTakenUser <- runDb (getBy $ UniqueEmail email req)
-    case maybeTakenUser of
-      Nothing -> return true
-      Just user -> return False
-  let usernameAvailable = do
-    maybeTakenUser <- runDb (getBy $ UniqueUsername username req)
-    case maybeTakenUser of
-      Nothing -> return true
-      Just user -> return False
+  let validPassword =
+-}

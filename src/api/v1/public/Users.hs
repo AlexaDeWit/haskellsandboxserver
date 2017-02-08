@@ -17,9 +17,7 @@ type PublicUsersApi = ReqBody '[JSON] RegistrationRequest :> Post '[JSON] User
 
 data RegistrationRequest = RegistrationRequest
   { email           :: String
-  , confirmEmail    :: String
   , username        :: String
-  , password        :: String
   , confirmPassword :: String
   } deriving (Eq, Show, Generic)
 instance FromJSON RegistrationRequest

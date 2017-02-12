@@ -20,4 +20,4 @@ newSessionToken :: Key User -> App (Key SessionToken)
 newSessionToken user = do
   time <- liftIO getCurrentTime
   let token = "Fucky"
-  return $ runDb $ insert $ SessionToken user token time
+  runDb $ insert $ SessionToken user token time

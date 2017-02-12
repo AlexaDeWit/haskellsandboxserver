@@ -8,6 +8,7 @@ import Data.Aeson.Types
 import Servant
 import DB.Config
 import DB.Schema
+import DB.Queries.SessionToken
 import DB.Queries.User
 import GHC.Generics
 import Database.Persist
@@ -26,8 +27,12 @@ instance ToJSON RegistrationRequest
 
 publicUserServer :: ServerT PublicUsersApi App
 publicUserServer = registerUser
-{-
+
 registerUser :: RegistrationRequest -> App SessionToken
 registerUser req = do
   userio <- makeUser (email req) (username req) (password req)
--}
+  keyToken <- newSessionToken userio
+  maybeToken <- get keyToken
+  case maybeToken of
+    Just t -> return t
+    Nothing -> throwError err400

@@ -33,7 +33,7 @@ tokenFromRequest :: LoginRequest -> App SessionToken
 tokenFromRequest req = do
   time <- liftIO getCurrentTime
   let token = "Fucky"
-  return $ SessionToken token time
+  return $ SessionToken 55 token time
 
 tokenServer :: ServerT SessionTokenApi App
 tokenServer = tokenFromRequest

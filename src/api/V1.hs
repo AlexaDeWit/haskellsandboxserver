@@ -19,6 +19,7 @@ import Servant
 import DB.Config (App (..), Config (..))
 import GHC.Generics
 import API.V1.Public.SessionTokens
+import API.V1.Public.Users
 
 apiV1App :: Config -> Application
 apiV1App cfg = serve v1ServerAPI (appToServer cfg)
@@ -41,6 +42,7 @@ convertApp cfg = Nat (flip runReaderT cfg . runApp)
 -}
 type APIV1 = "api" :> "v1" :>
   "public" :> "sessions" :> SessionTokenApi
+           :<> "users"    :> PublicUsersApi
 
 v1ServerAPI :: Proxy APIV1
 v1ServerAPI = Proxy

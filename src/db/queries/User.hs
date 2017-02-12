@@ -8,6 +8,7 @@ import Database.Persist
 import Database.Persist.Postgresql
 import DB.Schema
 import DB.Config
+import Data.Int (Int64)
 import Crypto.BCrypt
 import Control.Monad.Reader        (ReaderT, runReaderT)
 import Control.Monad.Reader.Class
@@ -20,16 +21,5 @@ makeUser email username rawPass = do
   let pack = Data.ByteString.Char8.pack
   p <- liftIO $ hashPasswordUsingPolicy slowerBcryptHashingPolicy (pack rawPass)
   let password = ask p
-  runDb $ insert $ User email username (show password)
-
-newtype Username = Username { unUsername :: String} deriving Show
-newtype Password = Password { unPassword :: String} deriving Show
-newtype Email = Email { unEmail :: String} deriving Show
-
-data UserValidationError = EmailAvailable
-                         | UsernameAvailable
-                         | ValidEmailFormat
-                         | PasswordFormat
-                         deriving Show
-
---mkUsername :: String -> AccValidation [UserValidationError] Username
+  newUser <- runDb $ insert $ User email username (show password)
+  return newUser

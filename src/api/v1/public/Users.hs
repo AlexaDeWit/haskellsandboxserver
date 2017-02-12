@@ -12,19 +12,22 @@ import DB.Queries.User
 import GHC.Generics
 import Database.Persist
 import Database.Persist.Postgresql
+import Control.Monad.IO.Class (liftIO)
 
-type PublicUsersApi = ReqBody '[JSON] RegistrationRequest :> Post '[JSON] User
+type PublicUsersApi = ReqBody '[JSON] RegistrationRequest :> Post '[JSON] SessionToken
 
 data RegistrationRequest = RegistrationRequest
   { email           :: String
   , username        :: String
-  , confirmPassword :: String
+  , password :: String
   } deriving (Eq, Show, Generic)
 instance FromJSON RegistrationRequest
 instance ToJSON RegistrationRequest
 
+publicUserServer :: ServerT PublicUsersApi App
+publicUserServer = registerUser
 {-
-registerUser :: RegistrationRequest -> App (Maybe User)
+registerUser :: RegistrationRequest -> App SessionToken
 registerUser req = do
-  let validPassword =
+  userio <- makeUser (email req) (username req) (password req)
 -}

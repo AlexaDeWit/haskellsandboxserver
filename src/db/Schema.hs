@@ -33,6 +33,7 @@ User json
   deriving Show Generic
 
 SessionToken json
+  userId UserId
   token String
   UniqueToken token
   expiration UTCTime
